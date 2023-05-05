@@ -1,4 +1,5 @@
 const usersController = {};
+const userModel = require('../models/userModel.js'); //ilgili model'ı controller'a dahil et.
 
 usersController.getAllUsers = (req, res) => {
     res.send('oldu canım');
@@ -9,8 +10,20 @@ usersController.getUser = (req, res) => {
     res.send('gönderilen parametre : ' + userID);
 }
 
-usersController.createUser = (req, res) => {
-    res.send('post isteği atıldı');
+usersController.createUser = async (req, res) => {
+    const user = req.body;
+    const post = new userModel({
+        username : req.body.username,
+        password : req.body.password,
+        email : req.body.email
+    });
+    try {
+        await post.save();
+        res.status(201).json(post);
+    }
+    catch(error) {
+        res.status(400).json({message : error.message});
+    }
 }
 
 usersController.updateUser = (req, res) => {
