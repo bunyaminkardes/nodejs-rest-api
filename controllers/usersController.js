@@ -2,16 +2,15 @@ const usersController = {};
 const mongoose = require("mongoose");
 const UserModel = require('../models/userModel.js'); //ilgili model'ı controller'a dahil et.
 
-
 usersController.createUser = async (req, res) => {
-    const post = new UserModel({
+    const user = new UserModel({
         username : req.body.username,
         password : req.body.password,
         email : req.body.email
     });
     try {
-        await post.save();
-        res.status(201).json(post);
+        await user.save();
+        res.status(201).json(user);
     }
     catch(error) {
         res.status(400).json({message : error.message});
