@@ -1,4 +1,3 @@
-const userRoutes = {};
 const userRouter = require("express").Router();
 const usersController = require("../controllers/usersController.js");
 
