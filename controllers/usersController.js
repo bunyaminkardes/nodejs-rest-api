@@ -37,14 +37,21 @@ usersController.getUser = async (req, res) => {
     }
 }
 
-usersController.updateUser = async (req, res) => { //?
+usersController.updateUser = async (req, res) => {
     const id = req.params.id;
     const {username, password, email} = req.body;
     const updatedUser = {_id: id, username, password, email};
 
-    await UserModel.findByIdAndUpdate(id, updatedUser);
-
-    res.json(updatedUser);
+    try {
+        if(!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(404).json({message : "Bu id değerine sahip bir kullanıcı bulunamadı."});
+        }
+        await UserModel.findByIdAndUpdate(id, updatedUser);
+        res.json(updatedUser);
+    }
+    catch(error) {
+        res.status(400).json({message : error.message});
+    }
 }
 
 usersController.deleteUser = async (req, res) => {
@@ -56,8 +63,7 @@ usersController.deleteUser = async (req, res) => {
         await UserModel.findByIdAndDelete(id);
         res.json({message : "kullanıcı başarıyla silindi."});
     }
-    catch(error)
-    {
+    catch(error) {
         res.status(400).json({message : error.message});
     } 
 }
