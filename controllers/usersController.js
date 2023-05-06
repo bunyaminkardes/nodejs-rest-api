@@ -46,7 +46,7 @@ usersController.updateUser = async (req, res) => {
             return res.status(404).json({message : "Bu id değerine sahip bir kullanıcı bulunamadı."});
         }
         await UserModel.findByIdAndUpdate(id, updatedUser);
-        res.json(updatedUser);
+        res.status(201).json(updatedUser);
     }
     catch(error) {
         res.status(400).json({message : error.message});
@@ -60,7 +60,7 @@ usersController.deleteUser = async (req, res) => {
             return res.status(404).json({message : "Bu id değerine sahip bir kullanıcı bulunamadı."});
         }
         await UserModel.findByIdAndDelete(id);
-        res.json({message : "kullanıcı başarıyla silindi."});
+        res.status(204).json({message : "kullanıcı başarıyla silindi."});
     }
     catch(error) {
         res.status(400).json({message : error.message});

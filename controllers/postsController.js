@@ -45,7 +45,7 @@ postsController.updatePost = async (req, res) => {
             return res.status(404).json({message : 'bu id değerine sahip bir post bulunamadı.'});
         }
         await PostModel.findByIdAndUpdate(id, updatedPost);
-        res.json(updatedPost);
+        res.status(201).json(updatedPost);
     }
     catch(error) {
         res.status(400).json({message : error.message});
@@ -59,7 +59,7 @@ postsController.deletePost = async (req, res) => {
             return res.status(404).json({message : 'bu id değerine sahip bir post bulunamadı.'});
         }
         await PostModel.findByIdAndDelete(id);
-        res.json({message : 'post başarıyla silindi.'});
+        res.status(204).json({message : 'post başarıyla silindi.'});
     }
     catch(error) {
         res.status(400).json({message : error.message});

@@ -1,19 +1,19 @@
-const userRouter = require("express").Router();
+const postRouter = require("express").Router();
 const postsController = require("../controllers/postsController.js");
 
 //yeni post oluştur
-userRouter.post('/', postsController.createPost);
+postRouter.post('/', postsController.createPost);
 
 //tüm postları getir
-userRouter.get('/', postsController.getAllPosts);
+postRouter.get('/', postsController.getAllPosts);
 
 //id parametresine göre post getir
-userRouter.get('/:id', postsController.getPost);
+postRouter.get('/:id', postsController.getPost);
 
 //id parametresine göre post güncelle
-userRouter.patch('/:id', postsController.updatePost);
+postRouter.patch('/:id', postsController.updatePost);
 
 //id parametresine göre post sil
-userRouter.delete('/:id', postsController.deletePost);
+postRouter.delete('/:id', postsController.deletePost);
 
-module.exports = userRouter;
+module.exports = postRouter;
